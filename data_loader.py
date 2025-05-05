@@ -3,7 +3,7 @@ import pandas as pd
 
 # link to dataset, with information: https://www.kaggle.com/datasets/nicapotato/womens-ecommerce-clothing-reviews
 
-data_file = 'data.csv'
+data_file = 'data/data.csv'
 
 def read_data(data_file):
     try:
