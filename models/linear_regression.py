@@ -20,4 +20,6 @@ def reviews_lin_reg(x, y):
     return (alpha, beta)
 
 alpha, beta = reviews_lin_reg(weighted_ratings_df["total_reviews"], weighted_ratings_df["weighted_avg_rating"])
-print(alpha, beta)
+# print(alpha, beta)
+
+# TODO: add in an inspection of the residuals
