@@ -1,8 +1,7 @@
-import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_auc_score, classification_report
+from sklearn.metrics import roc_auc_score
 from processing import garment_df
-from utils import vectorize_text, fit_model
+from utils import vectorize_text, fit_model, make_prediction, generate_classification_report, analyse_coefficients
 
 '''
     Perform a logistic regression using the review titles to predict the rating.
@@ -24,29 +23,6 @@ def split_data(df):
     return x_train, x_test, y_train, y_test
 
 
-def make_prediction(model, x_test_vect):
-    return model.predict(x_test_vect)
-
-
-def generate_classification_report(y_test, pred):
-    return classification_report(y_test, pred, target_names=["Negative", "Positive"])
-
-
-def analyse_coefficients(model, vect):
-    feature_names = np.array(vect.get_feature_names_out())
-    sorted_coefs = model.coef_[0].argsort()
-    # words connected to negative reviews (smallest weights), words connected to positive reviews, rated highest first
-    return f'Smallest Coefs: {feature_names[sorted_coefs[:10]]}', f'Largest Coefs: {feature_names[sorted_coefs[:-11:-1]]}'
-
-
-def test_sentiment_excerpt(model, vect):
-    # test prediction accuracy: how does the model respond to nuanced language?
-    positive_text = 'not an issue, dress is great'
-    negative_text = 'an issue, dress is not great'
-    # should return (1, 0)
-    return model.predict(vect.transform([positive_text, negative_text]))
-
-
 review_titles = clean_titles(garment_df)
 x_train, x_test, y_train, y_test = split_data(review_titles)
 vect, x_train_vect, x_test_vect = vectorize_text(x_train, x_test, min_df=3)
@@ -54,7 +30,6 @@ model = fit_model(x_train_vect, y_train)
 pred = make_prediction(model, x_test_vect)
 coeffs = analyse_coefficients(model, vect)
 
-print(f'AUC: {roc_auc_score(y_test, pred)}')
 print(generate_classification_report(y_test, pred))
 # print(coeffs)
 # print(test_sentiment_excerpt(model, vect))
