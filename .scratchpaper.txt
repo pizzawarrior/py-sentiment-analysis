@@ -1,0 +1,5 @@
+Running this project:
+Use the -m flag to run modules, not file names. Eg:
+    python -m models.logistic_regression_title
+For some reason there is a ModuleNotFoundError when running file names, ie:
+    python /models/logistic_regression_title.py

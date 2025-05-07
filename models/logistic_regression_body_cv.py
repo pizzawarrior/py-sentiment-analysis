@@ -3,13 +3,16 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
-from utils import positive_text, negative_text
-from logistic_regression_body import x_train, x_test, y_train, y_test
+from utils import positive_text, negative_text, generate_classification_report
+from processing import garment_df
+from models.logistic_regression_body import clean_reviews, split_data
+
 
 '''
     Let's try a different clasifier with 5-fold cross validation,
     and some preprocessing to try to boost the weights of the negative ratings
 '''
+
 
 def text_negation(text):
     text = re.sub(r'not (\w+)', r'not_\1', text)  # join words that are preceded by 'not' into one ngram
@@ -49,8 +52,8 @@ def evaluate_model(grid, x_test, y_test):
     return auc_score
 
 
-def predict_rating(grid, texts):
-    predictions = grid.predict([text_negation(text) for text in texts])
+def predict_excerpt(grid, excerpts):
+    predictions = grid.predict([text_negation(text) for text in excerpts])
     print("Prediction:", predictions)
     return predictions
 
@@ -58,7 +61,11 @@ def predict_rating(grid, texts):
 def train_evaluate_predict(x_train, x_test, y_train, y_test, positive_text, negative_text):
     grid = train_model(x_train, y_train)
     evaluate_model(grid, x_test, y_test)
-    predict_rating(grid, [positive_text, negative_text])
+    predict_excerpt(grid, [positive_text, negative_text])
+    pred = grid.predict(x_test)
+    generate_classification_report(y_test, pred)
 
 
+df = clean_reviews(garment_df)
+x_train, x_test, y_train, y_test = split_data(df)
 train_evaluate_predict(x_train, x_test, y_train, y_test, positive_text, negative_text)
