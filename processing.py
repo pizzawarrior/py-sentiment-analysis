@@ -62,3 +62,5 @@ df = read_data(data_file)
 cleaned_df = clean_data(df)
 garment_df = garment_class(cleaned_df)
 weighted_ratings_df = aggregate_ratings(garment_df)
+
+# display(garment_df.head(5))
