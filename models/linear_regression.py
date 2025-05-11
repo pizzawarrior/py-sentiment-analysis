@@ -32,12 +32,12 @@ def make_residuals(alpha, x, beta):
     return y_hat, e
 
 def scatterplot_residuals(y_hat, e):
-    plt.scatter(y_hat, e, marker='o')  # TODO: set this to variable?
+    plt.scatter(y_hat, e, marker='o')
     plt.xlabel('Predicted Ratings')
     plt.ylabel('Residuals (Ratings)')
     plt.title('Residuals Scatterplot')
     plt.show()
-    # what do we return here? (variable?)
+
 
 def hist_residuals(e):
     _, ax = plt.subplots(figsize=(8, 6))
@@ -46,4 +46,5 @@ def hist_residuals(e):
     plt.show()
 
 
-# TODO: call the plot functions above
+y_hat, e = make_residuals(alpha, x, beta)
+# scatterplot_residuals(y_hat, e)
