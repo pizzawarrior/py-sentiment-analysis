@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
 from processing import weighted_ratings_df
 
 
@@ -19,7 +21,31 @@ def reviews_lin_reg(x, y):
     beta = (u.dot(y - alpha * x)) / m
     return (alpha, beta)
 
-alpha, beta = reviews_lin_reg(weighted_ratings_df["total_reviews"], weighted_ratings_df["weighted_avg_rating"])
-# print(alpha, beta)
 
-# TODO: add in an inspection of the residuals
+def make_residuals(alpha, x, beta):
+    y_hat = np.array(alpha * x * beta)
+    e = np.array(y) - y_hat
+    return y_hat, e
+
+
+def scatterplot_residuals(y_hat, e):
+    plt.scatter(y_hat, e, marker='o')
+    plt.xlabel('Predicted Ratings')
+    plt.ylabel('Residuals (Ratings)')
+    plt.title('Residuals Scatterplot')
+    plt.show()
+
+
+def hist_residuals(e):
+    _, ax = plt.subplots(figsize=(8, 6))
+    ax.set_title('Residuals (Product Rating)')
+    plt.hist(e)
+    plt.show()
+
+
+x, y = weighted_ratings_df["total_reviews"], weighted_ratings_df["weighted_avg_rating"]
+alpha, beta = reviews_lin_reg(x, y)
+print(alpha, beta)
+
+y_hat, e = make_residuals(alpha, x, beta)
+scatterplot_residuals(y_hat, e)
