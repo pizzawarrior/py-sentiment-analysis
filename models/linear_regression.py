@@ -22,14 +22,11 @@ def reviews_lin_reg(x, y):
     return (alpha, beta)
 
 
-x, y = weighted_ratings_df["total_reviews"], weighted_ratings_df["weighted_avg_rating"]
-alpha, beta = reviews_lin_reg(x, y)
-# print(alpha, beta)
-
 def make_residuals(alpha, x, beta):
     y_hat = np.array(alpha * x * beta)
     e = np.array(y) - y_hat
     return y_hat, e
+
 
 def scatterplot_residuals(y_hat, e):
     plt.scatter(y_hat, e, marker='o')
@@ -46,5 +43,9 @@ def hist_residuals(e):
     plt.show()
 
 
+x, y = weighted_ratings_df["total_reviews"], weighted_ratings_df["weighted_avg_rating"]
+alpha, beta = reviews_lin_reg(x, y)
+print(alpha, beta)
+
 y_hat, e = make_residuals(alpha, x, beta)
-# scatterplot_residuals(y_hat, e)
+scatterplot_residuals(y_hat, e)

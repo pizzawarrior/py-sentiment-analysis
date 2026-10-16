@@ -1,5 +1,4 @@
 from sklearn.model_selection import train_test_split
-from utils import generate_classification_report, positive_text, negative_text
 from processing import garment_df
 from utils import (
     vectorize_text,
@@ -11,11 +10,13 @@ from utils import (
     positive_text,
     negative_text,
     test_sentiment_excerpt
-    )
+)
+
 
 def clean_reviews(df):
     # drop reviews that have no body
     return df[df['review'] != 'UNKNOWN'][['review', 'review_favorable']]
+
 
 def split_data(df):
     x_train, x_test, y_train, y_test = train_test_split(df['review'],

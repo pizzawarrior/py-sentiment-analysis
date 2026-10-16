@@ -1,12 +1,6 @@
 import pandas as pd
 from IPython.display import display
 import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-from numpy import linspace, floor, ceil
-from matplotlib.pyplot import scatter, xlabel, ylabel, title, plot
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import confusion_matrix, roc_auc_score, classification_report, ConfusionMatrixDisplay
 from data_loader import read_data, data_file
 
 
@@ -54,7 +48,10 @@ def aggregate_ratings(garment_df):
         'weighted_avg_rating': weighted_avg_rating
     })
 
-    weighted_ratings = weighted_ratings.sort_values(by=['weighted_avg_rating', 'total_reviews'], ascending=False).reset_index()
+    weighted_ratings = weighted_ratings.sort_values(
+        by=['weighted_avg_rating', 'total_reviews'],
+        ascending=False).reset_index()
+
     return weighted_ratings
 
 
@@ -63,4 +60,4 @@ cleaned_df = clean_data(df)
 garment_df = garment_class(cleaned_df)
 weighted_ratings_df = aggregate_ratings(garment_df)
 
-# display(garment_df.head(5))
+display(garment_df.head(5))

@@ -1,4 +1,4 @@
-#!/Users/ME/CODING/py-sentiment-analysis/.venv/bin/python
+#!/Users/ME/CODING/py_sentiment_analysis/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

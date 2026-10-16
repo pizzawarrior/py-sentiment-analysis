@@ -41,7 +41,6 @@ Levenshtein==0.27.1
 MarkupSafe==2.1.4
 matplotlib-inline==0.1.6
 mccabe==0.7.0
-motor==2.4.0
 mypy-extensions==1.0.0
 numpy==2.2.5
 orjson==3.9.12
@@ -65,7 +64,6 @@ pydantic==1.10.17
 pydantic_core==2.18.4
 pyflakes==3.1.0
 Pygments==2.15.1
-pymongo==4.3.3
 pyparsing==3.0.9
 pytest==7.1.2
 pytest-cov==4.1.0
